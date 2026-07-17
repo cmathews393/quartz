@@ -1,0 +1,18 @@
+<%= form_with model: site do |form| %>
+    <% if form.object.errors.any? %>
+        <p class="error"> <%= form.object.errors.full_messages.first%> </p>
+    <% end %>
+
+       <div>
+        <%= form.label :name%>
+        <%= form.text_field :name%>
+        <%= form.label :url%>
+        <%= form.url_field :url %>
+        <%= form.label :level_id%>
+        <%= form.text_field :level_id%>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>

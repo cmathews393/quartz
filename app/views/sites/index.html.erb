@@ -1,0 +1,15 @@
+<h1>Sites</h1>
+
+<%= link_to "New Site", new_site_path %>
+
+<div id="sites">
+   
+    <% @sites.each do |site| %>
+        <div>
+            <%= link_to site.name, site.url %>
+            <%= link_to "details", site_path(site.id)%>
+            <%= device_for_site(site)%>
+        </div>
+    <% end %>
+    
+</div>

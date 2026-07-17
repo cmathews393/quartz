@@ -1,0 +1,5 @@
+<h1>Site ID: <%= @site.id %> </h1>
+
+<%= link_to "Back", sites_path %>
+<%= link_to "Edit", edit_site_path(@site)%>
+<%= link_to "Delete", @site, method: :delete, data: { turbo_confirm: "Are you sure?"}%>
