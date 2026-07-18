@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_233533) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_18_040943) do
   create_table "sites", force: :cascade do |t|
+    t.text "acceptable_response"
     t.datetime "created_at", null: false
     t.string "level_id"
     t.string "name"
+    t.text "response_history"
     t.datetime "updated_at", null: false
     t.string "url"
   end
