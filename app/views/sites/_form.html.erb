@@ -3,14 +3,14 @@
         <p class="error"> <%= form.object.errors.full_messages.first%> </p>
     <% end %>
 
-       <div>
+    <div>
         <%= form.label :name%>
         <%= form.text_field :name%>
-        <%= form.label :url%>
+        <%= form.label :url, "URL"%>
         <%= form.url_field :url %>
-        <%= form.label :level_id%>
-        <%= form.text_field :level_id%>
-    </div>
+        <%= form.label :level_id, "Level ID"%>
+        <%= form.select(:level_id, LevelClient.new.get_devices.map { |device| [device["hostname"], device["id"]] }) %>
+
 
     <div>
         <%= form.submit %>
