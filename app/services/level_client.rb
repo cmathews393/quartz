@@ -16,6 +16,14 @@ class LevelClient
     request(method, path)
   end
 
+  def get_devices
+    method = :get
+    path = "/devices/"
+    response = request(method, path)
+    # unwrap data safely
+    response.dig("data")
+  end
+
   private
 
   def request(method, path, body: nil)
