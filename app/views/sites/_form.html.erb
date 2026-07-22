@@ -1,18 +1,35 @@
 <%= form_with model: site do |form| %>
-    <% if form.object.errors.any? %>
-        <p class="error"> <%= form.object.errors.full_messages.first%> </p>
-    <% end %>
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
+        <% if form.object.errors.any? %>
+            <div class="mb-4 p-4 bg-red-900/50 border border-red-700 rounded-lg">
+                <p class="text-red-300 font-semibold"><%= form.object.errors.full_messages.first%></p>
+            </div>
+        <% end %>
 
-    <div>
-        <%= form.label :name%>
-        <%= form.text_field :name%>
-        <%= form.label :url, "URL"%>
-        <%= form.url_field :url %>
-        <%= form.label :level_id, "Level ID"%>
-        <%= form.select(:level_id, LevelClient.new.get_devices.map { |device| [device["hostname"], device["id"]] }) %>
+        <div class="space-y-6">
+            <div>
+                <%= form.label :name, class: "block text-sm font-semibold text-gray-300 mb-2" %>
+                <%= form.text_field :name, class: "w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+            </div>
 
+            <div>
+                <%= form.label :url, "URL", class: "block text-sm font-semibold text-gray-300 mb-2" %>
+                <%= form.url_field :url, class: "w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+            </div>
 
-    <div>
-        <%= form.submit %>
+            <div>
+                <%= form.label :level_id, "Level ID", class: "block text-sm font-semibold text-gray-300 mb-2" %>
+                <%= form.select(:level_id, LevelClient.new.get_devices.map { |device| [device["hostname"], device["id"]] }, { include_blank: "Select a device" }, class: "w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500") %>
+            </div>
+
+            <div class="flex items-center">
+                <%= form.check_box :allow_ssl_errors, { class: "w-4 h-4 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-gray-500 cursor-pointer" } %>
+                <%= form.label :allow_ssl_errors, "Allow SSL Errors", class: "ml-2 text-sm font-semibold text-gray-300 cursor-pointer" %>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <%= form.submit class: "w-full px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors" %>
+        </div>
     </div>
 <% end %>

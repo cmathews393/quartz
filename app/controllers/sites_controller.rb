@@ -37,6 +37,6 @@ class SitesController < ApplicationController
       @site = Site.find(params[:id])
     end
     def site_params
-      params.expect(site: [ :name, :url, :level_id ])
+      params.expect(site: [ :name, :url, :level_id, :allow_ssl_errors ])
     end
 end

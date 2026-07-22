@@ -12,7 +12,10 @@ module SitesHelper
 
   def reachable(site)
     begin
-      response = Net::HTTP.get_response(URI(site.url))
+      uri = URI(site.url)
+      response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", verify_mode: (site.allow_ssl_errors && uri.scheme == "https" ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER)) do |http|
+        http.get(uri.request_uri)
+      end
       if site.acceptable_response.present?
         acceptable_codes = site.acceptable_response.is_a?(Array) ? site.acceptable_response : site.acceptable_response.split(",")
         acceptable_codes = acceptable_codes.map(&:to_s).map(&:strip)
@@ -29,6 +32,8 @@ module SitesHelper
       { ok: false, error: "timeout" }
     rescue Socket::ResolutionError
       { ok: false, error: "unresolved_addr" }
+    rescue OpenSSL::SSL::SSLError
+      { ok: false, error: "ssl_error" }
     end
   end
 
