@@ -1,12 +1,17 @@
 require "net/http"
 module SitesHelper
-  def device_for_site(site)
+  def level_reachable(site)
     return unless ENV["LEVEL_API_KEY"] && site.level_id
 
     begin
-      level_client.get_device(site.level_id)["online"]
+      online = level_client.get_device(site.level_id)["online"]
+      if online == true
+        { ok: true, online: true }
+      else
+        { ok: true, online: false }
+      end
     rescue
-      nil
+      { ok: false, error: "level_api_error" }
     end
   end
 

@@ -18,17 +18,12 @@
                   <h3 class="text-xl font-bold text-white">
                     <%= link_to site.name, site.url, target: "_blank", class: "text-gray-300 hover:text-white hover:underline" %>
                   </h3>
-                  <% if site.level_id != nil %>
-                    <% if device_for_site(site) == true %>
-                      <span title="level.io Status" class="h-3 w-3 rounded-full bg-green-500"></span>
-                    <% else %>
-                      <span title="level.io Status" class="h-3 w-3 rounded-full bg-red-500"></span>
-                    <%end%>
-                  <% end %>
+            
                 </div>
                 <p class="text-gray-400 text-sm break-all mb-3"><%= site.url %></p>
                 <div class="flex items-center gap-2">
-                  <%= render partial: "sites/status", locals: { site: site, result: { ok: nil, code: nil, error: nil }, initial: true } %>
+                  <%= render partial: "sites/reachable_status", locals: { site: site, result: { ok: nil, code: nil, error: nil } } %>
+                  <%= render partial: "sites/level_status", locals: { site: site, level_result: { ok: nil, online: nil } } %>
                 </div>
               </div>
               <div class="flex gap-2">

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :sites, controller: "sites_api" do
         get :status_stream, on: :member
+        get :level_status_stream, on: :member
       end
     end
   end

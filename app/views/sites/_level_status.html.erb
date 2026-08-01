@@ -1,0 +1,23 @@
+<div id="level-status" data-init="@get('/api/v1/sites/<%= site.id %>/level_status_stream')" >
+  <% if level_result[:ok].nil? %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-gray-500 animate-pulse"></span>
+      Checking...
+    </span>
+  <% elsif level_result[:ok] && level_result[:online] %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-green-500"></span>
+      Level.io Reachable <span class="text-gray-400">(online)</span>
+    </span>
+  <% elsif level_result[:ok] && !level_result[:online] %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-red-500"></span>
+      Level.io Unreachable <span class="text-gray-400">(offline)</span>
+    </span>
+  <% else %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-red-500"></span>
+      Level.io Unreachable <span class="text-gray-400">(API error)</span>
+    </span>
+  <% end %>
+</div>
