@@ -59,7 +59,11 @@ class LevelClient
     when 400
       raise "Bad Request: #{response.body}"
     when 401
-      raise "Unauthorized: Invalid API key"
+      if @api_key.nil?
+        raise "Unauthorized: API key is missing"
+      else
+        raise "Unauthorized: Invalid API key"
+      end
     when 404
       raise "Not Found: #{response.body}"
     when 429
