@@ -9,6 +9,13 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   resources :sites
+  namespace :api do
+    namespace :v1 do
+      resources :sites, controller: "sites_api" do
+        get :status_stream, on: :member
+      end
+    end
+  end
   # Defines the root path route ("/")
   root "sites#index"
 end
