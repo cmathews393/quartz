@@ -1,0 +1,19 @@
+<div id="reachable-status" data-init="@get('/api/v1/sites/<%= site.id %>/status_stream')" >
+
+  <% if result[:ok].nil? %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-gray-500 animate-pulse"></span>
+      Checking...
+    </span>
+  <% elsif result[:ok] %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-green-500"></span>
+      Reachable <span class="text-gray-400">(<%= result[:code] %>)</span>
+    </span>
+  <% else %>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm">
+      <span class="h-2 w-2 rounded-full bg-red-500"></span>
+      Unreachable <span class="text-gray-400">(<%= result[:error] %>)</span>
+    </span>
+  <% end %>
+</div>
